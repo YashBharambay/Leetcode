@@ -1,23 +1,35 @@
 class Solution {
 public:
-    string longestCommonPrefix(vector<string>& strs) {
-        int n = strs.size();
-        if(n==0) return "";
+    int romanToInt(string s) {
         
-        sort(strs.begin() ,  strs.end());
+        map<char , int>roman = {
+            {'I',1},
+            {'V',5},
+            {'X',10},
+            {'L',50},
+            {'C',100},
+            {'D',500},
+            {'M',1000}    };
         
-            string a = strs[0];
-            string b=strs[n-1];
-            string ans = "";
         
-        for(int i=0;i<a.size();i++)
+        int num,sum=0;
+        int len = s.length();
+        for(int i=0;i<len; )
         {
-            if(a[i]==b[i])
-                ans=ans+a[i];
-            else break;
+            if(i==len-1 || (roman[s[i]] >= roman[s[i+1]]))
+            {
+             num = roman[s[i]];
+             i++;
+            }
             
+            else
+            {
+                num = roman[s[i+1]] - roman[s[i]];
+                i+=2;
+            }
+            sum=sum+num;
         }
+        return sum;
         
-     return ans;
     }
 };
